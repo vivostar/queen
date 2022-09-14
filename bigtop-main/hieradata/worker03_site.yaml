@@ -1,0 +1,15 @@
+---
+### This is very important to make sure this file doesn't contain any TAB
+### symbols instead of spaces: the hiera YAML parser will choke to death with
+### uncomprehensive error message and you'll waste a lot of time debugging it.
+bigtop::hadoop_head_node: "master"
+#bigtop::standby_head_node: "standby.head.node.fqdn"
+
+hadoop::hadoop_storage_dirs:
+- /data/1
+bigtop::roles_enabled: true
+bigtop::roles: [datanode, nodemanager, mapred-app]
+bigtop::bigtop_repo_uri: ["http://repos.bigtop.apache.org/releases/3.1.0/centos/7/$basearch"]
+hadoop::common::use_tez: true
+# hadoop::common_mapred_app::mapreduce_framework_name: "yarn-tez"
+hadoop::common_yarn::yarn_resourcemanager_scheduler_class: org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler
