@@ -1,6 +1,6 @@
 ---
 :yaml:
-  :datadir: /etc/puppet/hieradata
+  :datadir: /bigtop-home/bigtop-main/hieradata
 :hierarchy:
   - "%{::fqdn}_site"
   - bigtop/mysql
