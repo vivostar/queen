@@ -11,8 +11,11 @@ bigtop::roles_enabled: true
 bigtop::roles: 
   - azkaban-exec-server
 bigtop::bigtop_repo_uri: ["http://repos.bigtop.apache.org/releases/3.1.0/centos/7/$basearch"]
-azkaban::exec_server::mysql_port: '3306'
-azkaban::exec_server::mysql_host: 'mysql'
-azkaban::exec_server::mysql_database: 'dev'
-azkaban::exec_server::mysql_user: 'dev'
-azkaban::exec_server::mysql_password: 'devpass'
+azkaban::mysql_port: '3306'
+azkaban::mysql_host: 'mysql'
+azkaban::mysql_database: 'dev'
+azkaban::mysql_user: 'dev'
+azkaban::mysql_password: 'devpass'
+azkaben::name: 'myboy'
+azkaben::label: 'My Big Boy'
+azkaben::timezone: 'Asia/Shanghai'

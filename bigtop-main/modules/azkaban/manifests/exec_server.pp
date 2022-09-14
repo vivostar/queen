@@ -1,15 +1,15 @@
 class azkaban::exec_server(
-  $azkaben_name = 'Test',
-  $azkaben_label = 'My Local Azkaban',
-  $azkaben_timezone = 'Asia/Shanghai',
-  $azkaban_webserver_host = 'localhost',
-  $azkaban_webserver_port = 8081,
-  $mysql_port = 3306,
-  $mysql_host = 'localhost',
-  $mysql_database = 'azkaban',
-  $mysql_user = 'azkaban',
-  $mysql_password = 'azkaban',
-  $executor_port = 12321,
+  $azkaben_name           = hiera('azkaben::name', 'Test'),
+  $azkaben_label          = hiera('azkaben::label', 'My Local Azkaban'),
+  $azkaben_timezone       = hiera('azkaben::timezone', 'Asia/Shanghai'),
+  $azkaban_webserver_host = hiera('azkaban::webserver_host', 'localhost'),
+  $azkaban_webserver_port = hiera('azkaban::webserver_port', 8081),
+  $mysql_port             = hiera('azkaban::mysql_port', 3306),
+  $mysql_host             = hiera('azkaban::mysql_host', 'localhost'),
+  $mysql_database         = hiera('azkaban::mysql_database', 'azkaban'),
+  $mysql_user             = hiera('azkaban::mysql_user', 'azkaban'),
+  $mysql_password         = hiera('azkaban::mysql_password', 'azkaban'),
+  $executor_port          = 12321,
 ) {
   file {'/tmp/azkaban-exec-server-3.90.0.tar.gz':
     ensure        => present,
@@ -52,7 +52,7 @@ class azkaban::exec_server(
   }
 
 
-  service { 'azkaban-server':
+  service { 'azkaban-exec-server':
     ensure => running,
     start  => '(cd /usr/lib/azkaban-exec-server; bin/start-exec.sh)',
     stop   => '(cd /usr/lib/azkaban-exec-server; bin/shutdown-exec.sh)',

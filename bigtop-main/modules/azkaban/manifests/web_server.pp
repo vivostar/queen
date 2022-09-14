@@ -1,4 +1,13 @@
-class azkaban::web_server {
+class azkaban::web_server(
+  $azkaben_name      =    hiera('azkaben::name', 'Test'),
+  $azkaben_label     =    hiera('azkaben::label', 'My Local Azkaban'),
+  $azkaben_timezone  =    hiera('azkaben::timezone', 'Asia/Shanghai'),
+  $mysql_port        =    hiera('azkaban::mysql_port', 3306),
+  $mysql_host        =    hiera('azkaban::mysql_host', 'localhost'),
+  $mysql_database    =    hiera('azkaban::mysql_database', 'azkaban'),
+  $mysql_user        =    hiera('azkaban::mysql_user', 'azkaban'),
+  $mysql_password    =    hiera('azkaban::mysql_password', 'azkaban'),
+) {
   file {'/tmp/azkaban-web-server-3.90.0.tar.gz':
     ensure        => present,
     source        => "puppet:///modules/azkaban/azkaban-web-server-3.90.0.tar.gz",
@@ -32,11 +41,18 @@ class azkaban::web_server {
       File['/etc/azkaban-web-server'],
     ],
   }
+
+  file { 'web-conf-properties':
+    path    => '/etc/azkaban-web-server/conf/azkaban.properties',
+    content => template('azkaban/web-server/azkaban.properties'),
+    require => File['azkaban-web-server-conf'],
+  }
+
   service { 'azkaban-server':
     ensure => running,
     start  => '(cd /usr/lib/azkaban-web-server; bin/start-web.sh)',
     stop   => '(cd /usr/lib/azkaban-web-server; bin/shutdown-web.sh)',
-    require => File['azkaban-web-server-conf'],
+    require => File['web-conf-properties'],
   }
 
 }
