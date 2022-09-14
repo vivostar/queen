@@ -18,6 +18,11 @@ class mysql_deploy {
     Yumrepo['repo.mysql.com'] -> Package['mysql_client']
     
     create_resources(mysql::db, hiera('mysql::server::db', {}))
+    notice("test************************************")
+    notice($mysql::server::override_options)
+    notice($mysql::server::options)
+    notice($mysql::server::config_file)
+    notice($mysql::params::provider)
 
   }
 }

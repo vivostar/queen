@@ -9,6 +9,7 @@ class azkaban::exec_server(
   $mysql_database = 'azkaban',
   $mysql_user = 'azkaban',
   $mysql_password = 'azkaban',
+  $executor_port = 12321,
 ) {
   file {'/tmp/azkaban-exec-server-3.90.0.tar.gz':
     ensure        => present,
