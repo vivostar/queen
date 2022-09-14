@@ -26,6 +26,6 @@ class node_with_roles($roles = hiera("bigtop::roles")) {
   # relate to Puppet Resource Collectors and Relationships and ordering
   # Here is very useful to change the stage puppet actually execution.
   # Todo, here's stage organization is not good, I will tune it tomorrow.
-  Mysql::Db<||> -> Archive<||>
+ #  Mysql::Db<||> -> Archive<||>
   
 }

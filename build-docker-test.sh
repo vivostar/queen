@@ -2,7 +2,7 @@ echo -e "\033[32mCreating network bigtop\033[0m"
 docker network create --driver bridge bigtop
 
 echo -e "\033[32mCreating docker cluster mysql\033[0m"
-docker run -d \
+docker run -d -p 3306:3306 \
     --name mysql \
     --hostname mysql \
     --network bigtop \
