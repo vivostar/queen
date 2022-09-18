@@ -4,8 +4,7 @@ hadoop::hadoop_storage_dirs:
 - /data/1
 bigtop::roles_enabled: true
 bigtop::roles: 
-  - zookeeper-server
-  - zookeeper-client
+  - hbase-server
 bigtop::bigtop_repo_uri: ["http://repos.bigtop.apache.org/releases/3.1.0/centos/7/$basearch"]
 hadoop_zookeeper::server::myid: 2
 hadoop_zookeeper::server::ensemble: 
