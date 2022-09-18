@@ -1,8 +1,9 @@
 echo -e "\033[32mCreating network bigtop\033[0m"
 docker network create --driver bridge bigtop
 
-echo -e "\033[32mCreating docker cluster mysql\033[0m"
+echo -e "\033[32mCreating docker cluster hmaster\033[0m"
 docker run -d \
+    -p 16010:16010 \
     --name hmaster \
     --hostname hmaster \
     --network bigtop \
@@ -10,7 +11,7 @@ docker run -d \
     -v `pwd`:/bigtop-home \
     -v /sys/fs/cgroup:/sys/fs/cgroup:ro bigtop/puppet:trunk-centos-7 /usr/sbin/init
 
-echo -e "\033[32mCreating docker cluster master\033[0m"
+echo -e "\033[32mCreating docker cluster rgserver01\033[0m"
 docker run -d \
     --name rgserver01 \
     --hostname rgserver01 \
@@ -19,7 +20,7 @@ docker run -d \
     -v `pwd`:/bigtop-home \
     -v /sys/fs/cgroup:/sys/fs/cgroup:ro bigtop/puppet:trunk-centos-7 /usr/sbin/init
 
-echo -e "\033[32mCreating docker cluster worker01\033[0m"
+echo -e "\033[32mCreating docker cluster rgserver02\033[0m"
 docker run -d \
     --name rgserver02 \
     --hostname rgserver02 \
@@ -28,7 +29,7 @@ docker run -d \
     -v `pwd`:/bigtop-home \
     -v /sys/fs/cgroup:/sys/fs/cgroup:ro bigtop/puppet:trunk-centos-7 /usr/sbin/init
 
-echo -e "\033[32mCreating docker cluster worker02\033[0m"
+echo -e "\033[32mCreating docker cluster hadoop\033[0m"
 docker run -d \
     --name hadoop \
     --hostname hadoop \
