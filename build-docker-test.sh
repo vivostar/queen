@@ -1,8 +1,9 @@
 echo -e "\033[32mCreating network bigtop\033[0m"
 docker network create --driver bridge bigtop
 
-echo -e "\033[32mCreating docker cluster mysql\033[0m"
+echo -e "\033[32mCreating docker cluster hmaster\033[0m"
 docker run -d \
+    -p 16010:16010 \
     --name hmaster \
     --hostname hmaster \
     --network bigtop \
@@ -66,6 +67,11 @@ docker exec hadoop bash -c "echo '$RGSERVER02_IP      rgserver02' >> /etc/hosts"
 # docker exec --user root hue bash -c "echo '$WORKER01_IP      worker01' >> /etc/hosts"
 # docker exec --user root hue bash -c "echo '$WORKER02_IP      worker02' >> /etc/hosts"
 
+echo -e "\033[32mStarting deploy bigtop cluster hadoop\033[0m"
+docker exec hadoop bash -c \
+    "puppet apply --detailed-exitcodes --parser future --hiera_config=/bigtop-home/bigtop-main/hiera.yaml --modulepath=/bigtop-home/bigtop-main/modules:/etc/puppet/modules:/usr/share/puppet/modules:/etc/puppetlabs/code/modules:/etc/puppet/code/modules /bigtop-home/bigtop-main/manifests"
+
+
 echo -e "\033[32mStarting deploy bigtop cluster hmaster\033[0m"
 docker exec hmaster bash -c \
     "puppet apply --detailed-exitcodes --parser future --hiera_config=/bigtop-home/bigtop-main/hiera.yaml --modulepath=/bigtop-home/bigtop-main/modules:/etc/puppet/modules:/usr/share/puppet/modules:/etc/puppetlabs/code/modules:/etc/puppet/code/modules /bigtop-home/bigtop-main/manifests"
@@ -77,8 +83,4 @@ docker exec rgserver01 bash -c \
 
 echo -e "\033[32mStarting deploy bigtop cluster rgserver02\033[0m"
 docker exec rgserver02 bash -c \
-    "puppet apply --detailed-exitcodes --parser future --hiera_config=/bigtop-home/bigtop-main/hiera.yaml --modulepath=/bigtop-home/bigtop-main/modules:/etc/puppet/modules:/usr/share/puppet/modules:/etc/puppetlabs/code/modules:/etc/puppet/code/modules /bigtop-home/bigtop-main/manifests"
-
-echo -e "\033[32mStarting deploy bigtop cluster hadoop\033[0m"
-docker exec hadoop bash -c \
     "puppet apply --detailed-exitcodes --parser future --hiera_config=/bigtop-home/bigtop-main/hiera.yaml --modulepath=/bigtop-home/bigtop-main/modules:/etc/puppet/modules:/usr/share/puppet/modules:/etc/puppetlabs/code/modules:/etc/puppet/code/modules /bigtop-home/bigtop-main/manifests"

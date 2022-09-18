@@ -6,6 +6,7 @@ bigtop::roles_enabled: true
 bigtop::roles: 
   - hbase-server
 bigtop::bigtop_repo_uri: ["http://repos.bigtop.apache.org/releases/3.1.0/centos/7/$basearch"]
+hadoop_hbase::common_config::zookeeper_quorum: "hmaster,rgserver01,rgserver02"
 hadoop_zookeeper::server::myid: 2
 hadoop_zookeeper::server::ensemble: 
   - [1, "hmaster:2888:3888"]
