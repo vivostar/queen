@@ -8,14 +8,8 @@ bigtop::hadoop_head_node: "master"
 hadoop::hadoop_storage_dirs:
 - /data/1
 bigtop::roles_enabled: true
-bigtop::roles: 
-  - azkaban-exec-server
+bigtop::roles: [datanode, nodemanager, mapred-app, resourcemanager, nodemanager, hadoop-client]
 bigtop::bigtop_repo_uri: ["http://repos.bigtop.apache.org/releases/3.1.0/centos/7/$basearch"]
-azkaban::mysql_port: '3306'
-azkaban::mysql_host: 'mysql'
-azkaban::mysql_database: 'dev'
-azkaban::mysql_user: 'dev'
-azkaban::mysql_password: 'devpass'
-azkaben::name: 'myboy'
-azkaben::label: 'My Big Boy'
-azkaben::timezone: 'Asia/Shanghai'
+hadoop::common::use_tez: true
+# hadoop::common_mapred_app::mapreduce_framework_name: "yarn-tez"
+hadoop::common_yarn::yarn_resourcemanager_scheduler_class: org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler
