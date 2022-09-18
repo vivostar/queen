@@ -7,7 +7,7 @@ bigtop::roles:
   - zookeeper-server
   - zookeeper-client
 bigtop::bigtop_repo_uri: ["http://repos.bigtop.apache.org/releases/3.1.0/centos/7/$basearch"]
-hadoop_zookeeper::server::myid: 1
+hadoop_zookeeper::server::myid: 2
 hadoop_zookeeper::server::ensemble: 
   - [1, "hmaster:2888:3888"]
   - [2, "rgserver01:2888:3888"]
