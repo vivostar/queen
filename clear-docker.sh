@@ -1,14 +1,14 @@
 echo -e "\033[32mRemoving container mysql\033[0m"
-docker rm -f mysql
+docker rm -f hmaster
 
 echo -e "\033[32mRemoving container master\033[0m"
-docker rm -f master
+docker rm -f rgserver01
 
 echo -e "\033[32mRemoving container worker01\033[0m"
-docker rm -f worker01
+docker rm -f rgserver02
 
 echo -e "\033[32mRemoving container worker02\033[0m"
-docker rm -f worker02
+docker rm -f hadoop
 
 echo -e "\033[32mRemoving network bigtop\033[0m"
 docker network rm bigtop
