@@ -8,8 +8,8 @@ bigtop::hadoop_head_node: "hadoop"
 hadoop::hadoop_storage_dirs:
 - /data/1
 bigtop::roles_enabled: true
-bigtop::roles: [datanode, nodemanager, mapred-app, resourcemanager, nodemanager, hadoop-client]
+bigtop::roles: [datanode, nodemanager, mapred-app, resourcemanager, namenode, hadoop-client]
 bigtop::bigtop_repo_uri: ["http://repos.bigtop.apache.org/releases/3.1.0/centos/7/$basearch"]
-hadoop::common::use_tez: true
+# hadoop::common::use_tez: true
 # hadoop::common_mapred_app::mapreduce_framework_name: "yarn-tez"
 hadoop::common_yarn::yarn_resourcemanager_scheduler_class: org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler
