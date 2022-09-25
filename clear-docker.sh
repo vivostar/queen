@@ -1,14 +1,7 @@
-echo -e "\033[32mRemoving container mysql\033[0m"
-docker rm -f mysql
-
-echo -e "\033[32mRemoving container master\033[0m"
-docker rm -f master
-
-echo -e "\033[32mRemoving container worker01\033[0m"
-docker rm -f worker01
-
-echo -e "\033[32mRemoving container worker02\033[0m"
-docker rm -f worker02
+for MASTER in master{1..3} worker01; do 
+  echo -e "\033[32mRemoving container ${MASTER}\033[0m"
+  docker rm -f $MASTER
+done
 
 echo -e "\033[32mRemoving network bigtop\033[0m"
 docker network rm bigtop

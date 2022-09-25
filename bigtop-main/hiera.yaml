@@ -4,6 +4,6 @@
 :hierarchy:
   - "%{::fqdn}_site"
   - bigtop/mysql
-#  - "bigtop/%{hadoop_hiera_ha_path}"
+  - bigtop/ha
   - bigtop/cluster
   - bigtop/repo

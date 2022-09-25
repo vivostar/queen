@@ -8,5 +8,8 @@ bigtop::standby_head_node: "master2"
 hadoop::hadoop_storage_dirs:
 - /data/1
 bigtop::roles_enabled: true
-bigtop::roles: [datanode, nodemanager, mapred-app]
+bigtop::roles: 
+- namenode 
+- resourcemanager
+- secondarynamenode
 bigtop::bigtop_repo_uri: ["http://repos.bigtop.apache.org/releases/3.1.0/centos/7/$basearch"]
