@@ -9,7 +9,10 @@ hadoop::hadoop_storage_dirs:
 - /data/1
 bigtop::roles_enabled: true
 bigtop::roles: 
-- namenode 
-- resourcemanager
-- secondarynamenode
+# - namenode 
+- nodemanager
+# - secondarynamenode
+- journalnode
 bigtop::bigtop_repo_uri: ["http://repos.bigtop.apache.org/releases/3.1.0/centos/7/$basearch"]
+hadoop::common_hdfs::sshfence_privkey: hadoop/hdfs/id_hdfsuser
+hadoop::common_hdfs::sshfence_pubkey: hadoop/hdfs/id_hdfsuser.pub

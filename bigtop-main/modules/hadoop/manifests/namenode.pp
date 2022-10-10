@@ -14,7 +14,7 @@
       }
 
       file { $hadoop::common_hdfs::sshfence_keypath:
-        source  => "puppet:///files/$hadoop::common_hdfs::sshfence_privkey",
+        source  => "puppet:///modules/$hadoop::common_hdfs::sshfence_privkey",
         owner   => 'hdfs',
         group   => 'hdfs',
         mode    => '0600',
@@ -23,7 +23,7 @@
       }
 
       file { "$hadoop::common_hdfs::sshfence_keydir/authorized_keys":
-        source  => "puppet:///files/$hadoop::common_hdfs::sshfence_pubkey",
+        source  => "puppet:///modules/$hadoop::common_hdfs::sshfence_pubkey",
         owner   => 'hdfs',
         group   => 'hdfs',
         mode    => '0600',
@@ -34,7 +34,11 @@
       if (! ('qjournal://' in $hadoop::common_hdfs::shared_edits_dir)) {
         hadoop::create_storage_dir { $hadoop::common_hdfs::shared_edits_dir: } ->
         file { $hadoop::common_hdfs::shared_edits_dir:
-          ensure => directory,
+          ensure  => directory,
+          owner   => 'hdfs',
+          group   => 'hdfs',
+          mode    => '755',
+          require => Package["hadoop-hdfs"],
         }
 
         if ($nfs_server) {

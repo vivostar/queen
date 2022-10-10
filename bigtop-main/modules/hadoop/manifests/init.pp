@@ -47,7 +47,7 @@ class hadoop ($hadoop_security_authentication = "simple",
       }
     }
 
-    if ("standby-namenode" in $roles and $hadoop::common_hdfs::ha != "disabled") {
+    if ("standby-namenode" in $roles and hiera('hadoop::common_hdfs::ha') != "disabled") {
       include hadoop::namenode
     }
 
@@ -83,6 +83,10 @@ class hadoop ($hadoop_security_authentication = "simple",
 
     if ("hadoop-client" in $roles) {
       include hadoop::client
+    }
+
+    if ("journalnode" in $roles) {
+      include hadoop::journalnode
     }
   }
 
