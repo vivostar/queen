@@ -1,5 +1,5 @@
 ---
-hadoop::common_hdfs::ha: "manual"
+hadoop::common_hdfs::ha: "auto"
 hadoop::common_hdfs::hadoop_namenode_host:
   - "%{hiera('bigtop::hadoop_head_node')}"
   - "%{hiera('bigtop::standby_head_node')}"
