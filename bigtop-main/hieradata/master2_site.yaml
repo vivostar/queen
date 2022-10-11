@@ -1,7 +1,4 @@
 ---
-### This is very important to make sure this file doesn't contain any TAB
-### symbols instead of spaces: the hiera YAML parser will choke to death with
-### uncomprehensive error message and you'll waste a lot of time debugging it.
 bigtop::hadoop_head_node: "master1"
 bigtop::standby_head_node: "master2"
 
@@ -9,10 +6,11 @@ hadoop::hadoop_storage_dirs:
 - /data/1
 bigtop::roles_enabled: true
 bigtop::roles: 
-- standby-namenode 
-- nodemanager
-- secondarynamenode
-- journalnode
+  - zookeeper-server
+  - zookeeper-client
 bigtop::bigtop_repo_uri: ["http://repos.bigtop.apache.org/releases/3.1.0/centos/7/$basearch"]
-hadoop::common_hdfs::sshfence_privkey: hadoop/hdfs/id_hdfsuser
-hadoop::common_hdfs::sshfence_pubkey: hadoop/hdfs/id_hdfsuser.pub
+hadoop_zookeeper::server::myid: 2
+hadoop_zookeeper::server::ensemble: 
+  - [1, "master1:2888:3888"]
+  - [2, "master2:2888:3888"]
+  - [3, "master3:2888:3888"]
