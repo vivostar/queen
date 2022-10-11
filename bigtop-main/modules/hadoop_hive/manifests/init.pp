@@ -108,9 +108,19 @@ class hadoop_hive {
       ensure => latest,
     }
 
+    archive { "mysql-connector-java.jar":
+      path  => '/usr/lib/hive/lib/mysql-connector-java.jar',
+      ensure =>  present,
+      source => 'https://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.47/mysql-connector-java-5.1.47.jar',
+      require => Package["hive-metastore"],
+    }
+
     service { "hive-metastore":
       ensure => running,
-      require => Package["hive-metastore"],
+      require => [
+        Package["hive-metastore"],
+        Archive["mysql-connector-java.jar"],
+      ],
       subscribe => File["/etc/hive/conf/hive-site.xml"],
       hasrestart => true,
       hasstatus => true,

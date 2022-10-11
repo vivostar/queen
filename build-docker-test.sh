@@ -79,4 +79,6 @@ docker exec worker02 bash -c \
 
 echo -e "\033[32mStarting deploy bigtop cluster master\033[0m"
 docker exec master bash -c \
+    "puppet module install adam8723-mysql --version 3.11.1;puppet module install puppet-archive --version 1.3.0"
+docker exec master bash -c \
     "puppet apply --detailed-exitcodes --parser future --hiera_config=/bigtop-home/bigtop-main/hiera.yaml --modulepath=/bigtop-home/bigtop-main/modules:/etc/puppet/modules:/usr/share/puppet/modules:/etc/puppetlabs/code/modules:/etc/puppet/code/modules /bigtop-home/bigtop-main/manifests"
