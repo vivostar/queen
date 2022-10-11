@@ -9,15 +9,12 @@ hadoop::hadoop_storage_dirs:
 - /data/1
 bigtop::roles_enabled: true
 bigtop::roles: 
-- azkaban-web-server
+  - namenode 
+  - resourcemanager
+  - hive-metastore
+  - spark-thriftserver
 bigtop::bigtop_repo_uri: ["http://repos.bigtop.apache.org/releases/3.1.0/centos/7/$basearch"]
-azkaban::mysql_port: '3306'
-azkaban::mysql_host: 'mysql'
-azkaban::mysql_database: 'dev'
-azkaban::mysql_user: 'dev'
-azkaban::mysql_password: 'devpass'
-azkaben::name: 'myboy'
-azkaben::label: 'My Big Boy'
-azkaben::timezone: 'Asia/Shanghai'
-azkaban::webserver_host: "%{hiera('bigtop::hadoop_head_node')}"
-azkaban::webserver_port: 8081
+hadoop_hive::common_config::javax_jdo_option_ConnectionURL: jdbc:mysql://mysql:3306/hive?createDatabaseIfNotExist=true
+hadoop_hive::common_config::javax_jdo_option_ConnectionDriverName: com.mysql.jdbc.Driver
+hadoop_hive::common_config::javax_jdo_option_ConnectionUserName: hive
+hadoop_hive::common_config::javax_jdo_option_ConnectionPassword: hivepass

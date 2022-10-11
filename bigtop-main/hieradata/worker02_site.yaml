@@ -1,21 +1,10 @@
 ---
-### This is very important to make sure this file doesn't contain any TAB
-### symbols instead of spaces: the hiera YAML parser will choke to death with
-### uncomprehensive error message and you'll waste a lot of time debugging it.
 bigtop::hadoop_head_node: "master"
-#bigtop::standby_head_node: "standby.head.node.fqdn"
-
 hadoop::hadoop_storage_dirs:
 - /data/1
 bigtop::roles_enabled: true
 bigtop::roles: 
-  - azkaban-exec-server
+  - datanode
+  - nodemanager
+  - mapred-app
 bigtop::bigtop_repo_uri: ["http://repos.bigtop.apache.org/releases/3.1.0/centos/7/$basearch"]
-azkaban::mysql_port: '3306'
-azkaban::mysql_host: 'mysql'
-azkaban::mysql_database: 'dev'
-azkaban::mysql_user: 'dev'
-azkaban::mysql_password: 'devpass'
-azkaben::name: 'myboy'
-azkaben::label: 'My Big Boy'
-azkaben::timezone: 'Asia/Shanghai'

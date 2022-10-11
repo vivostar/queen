@@ -65,6 +65,8 @@ docker exec worker02 bash -c "echo '$MYSQL_IP      mysql' >> /etc/hosts"
 
 echo -e "\033[32mStarting deploy bigtop cluster mysql\033[0m"
 docker exec mysql bash -c \
+    "puppet module install adam8723-mysql --version 3.11.1;puppet module install puppet-archive --version 1.3.0"
+docker exec mysql bash -c \
     "puppet apply --detailed-exitcodes --parser future --hiera_config=/bigtop-home/bigtop-mysql/hiera.yaml --modulepath=/bigtop-home/bigtop-mysql/modules:/etc/puppet/modules:/usr/share/puppet/modules:/etc/puppetlabs/code/modules:/etc/puppet/code/modules /bigtop-home/bigtop-mysql/manifests"
 
 echo -e "\033[32mStarting deploy bigtop cluster worker01\033[0m"
@@ -74,12 +76,6 @@ docker exec worker01 bash -c \
 echo -e "\033[32mStarting deploy bigtop cluster worker02\033[0m"
 docker exec worker02 bash -c \
     "puppet apply --detailed-exitcodes --parser future --hiera_config=/bigtop-home/bigtop-main/hiera.yaml --modulepath=/bigtop-home/bigtop-main/modules:/etc/puppet/modules:/usr/share/puppet/modules:/etc/puppetlabs/code/modules:/etc/puppet/code/modules /bigtop-home/bigtop-main/manifests"
-
-echo -e "\033[32mActive azkaban workers\033[0m"
-docker exec worker01 bash -c \
-    "curl -G \"worker01:12321/executor?action=activate\" && echo"
-docker exec worker02 bash -c \
-    "curl -G \"worker02:12321/executor?action=activate\" && echo"
 
 echo -e "\033[32mStarting deploy bigtop cluster master\033[0m"
 docker exec master bash -c \

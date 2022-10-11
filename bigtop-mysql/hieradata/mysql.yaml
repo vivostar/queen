@@ -34,11 +34,13 @@ mysql::server::override_options:
 
 # create database + account with access, passwords are not encrypted
 mysql::server::db:
-  "dev":
-    user: "dev"
-    password: "devpass"
-    host: "%"
-    sql: "/usr/lib/azkaban-db/create-all-sql-3.90.0.sql"
-    import_timeout: 1000
-    grant:
-      - "ALL"
+ "hive":
+   user: "hive"
+   password: "hivepass"
+   host: "%"
+   # sql: "/usr/lib/azkaban-db/create-all-sql-3.90.0.sql"
+   # import_timeout: 1000
+   charset: 'latin1'
+   collate: 'latin1_swedish_ci'
+   grant:
+     - "ALL"

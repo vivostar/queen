@@ -45,7 +45,11 @@ class hadoop_hive {
     } 
   }
 
-  class common_config ($hive_tez_container_size = undef,
+  class common_config ($javax_jdo_option_ConnectionURL = undef,
+                       $javax_jdo_option_ConnectionDriverName = undef,
+                       $javax_jdo_option_ConnectionUserName = undef,
+                       $javax_jdo_option_ConnectionPassword = undef,
+                       $hive_tez_container_size = undef,
                        $hive_tez_cpu_vcores = undef,
                        $hbase_master = "",
                        $hbase_zookeeper_quorum = "",

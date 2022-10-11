@@ -77,16 +77,37 @@
 
 <property>
   <name>javax.jdo.option.ConnectionURL</name>
+  <% if @javax_jdo_option_ConnectionURL -%> 
+  <value><%= @javax_jdo_option_ConnectionURL %></value>
+  <% else -%>
   <value>jdbc:derby:;databaseName=/var/lib/hive/metastore/metastore_db;create=true</value>
+  <% end -%>
   <description>JDBC connect string for a JDBC metastore</description>
 </property>
 
 <property>
   <name>javax.jdo.option.ConnectionDriverName</name>
+  <% if @javax_jdo_option_ConnectionDriverName -%> 
+  <value><%= @javax_jdo_option_ConnectionDriverName %></value>
+  <% else -%>
   <value>org.apache.derby.jdbc.EmbeddedDriver</value>
+  <% end -%>
   <description>Driver class name for a JDBC metastore</description>
 </property>
 
+<% if @javax_jdo_option_ConnectionUserName -%>
+<property>
+  <name>javax.jdo.option.ConnectionUserName</name>
+  <value><%= @javax_jdo_option_ConnectionUserName %></value>
+</property>
+<% end -%>
+
+<% if @javax_jdo_option_ConnectionPassword -%>
+<property>
+  <name>javax.jdo.option.ConnectionPassword</name>
+  <value><%= @javax_jdo_option_ConnectionPassword %></value>
+</property>
+<% end -%>
 
 <property>
    <name>hive.server2.allow.user.substitution</name>
