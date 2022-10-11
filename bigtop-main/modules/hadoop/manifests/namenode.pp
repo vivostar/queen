@@ -125,12 +125,21 @@
       $retry_params = "-Dipc.client.connect.max.retries=$standby_bootstrap_retries \
         -Dipc.client.connect.retry.interval=$standby_bootstrap_retry_interval"
 
+      hadoop::namedir_copy { $hadoop::common_hdfs::namenode_data_dirs:
+        source       => $first_namenode,
+        ssh_identity => $hadoop::common_hdfs::sshfence_keypath,
+        require      => File[$hadoop::common_hdfs::sshfence_keypath],
+      }
       exec { "namenode bootstrap standby":
         user => "hdfs",
         # first namenode might be rebooting just now so try for some time
         command => "/bin/bash -c 'hdfs namenode -bootstrapStandby $retry_params >> /var/lib/hadoop-hdfs/nn.bootstrap-standby.log 2>&1'",
         creates => "${hadoop::common_hdfs::namenode_data_dirs[0]}/current/VERSION",
-        require => [ Package["hadoop-hdfs-namenode"], File[$hadoop::common_hdfs::namenode_data_dirs], File["/etc/hadoop/conf/hdfs-site.xml"] ],
+        require => [ Package["hadoop-hdfs-namenode"], 
+        File[$hadoop::common_hdfs::namenode_data_dirs], 
+        File["/etc/hadoop/conf/hdfs-site.xml"],
+        Hadoop::Namedir_copy[$hadoop::common_hdfs::namenode_data_dirs],
+        ],
         tag     => "namenode-format",
       }
     } elsif ($hadoop::common_hdfs::ha != "disabled") {
